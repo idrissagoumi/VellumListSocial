@@ -1,0 +1,31 @@
+<section data-ng-controller="ProjetsController" data-ng-init="findProjects()">
+    <div class="page-header">
+        <h2 style="color: #0055aa">Projets</h2>
+    </div>
+
+    <div class="list-group col-lg-8">
+        <div class="input-group left col-sm-6" style="margin-top:20px;margin-bottom: 20px">
+            <input type="text" ng-model="searchText" class="form-control" placeholder="Rechercher un projet">
+         <span class="input-group-btn">
+            <button class="btn btn-info" type="button">Go</button>
+           </span>
+        </div><!-- /input-group -->
+
+
+
+        <a data-ng-repeat="projet in projets | filter:searchText" data-ng-href="#!/projets/{{projet._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				crée le
+				<span data-ng-bind="projet.created | date:'medium'"></span>
+				par
+				<span data-ng-bind="projet.user.displayName"></span>
+			</small>
+			<h3 style="margin: 10px; color: #0055aa" class="list-group-item-heading left" data-ng-bind="projet.projectName"></h3>
+            <h5 style="margin: 10px; color: #0055aa" class="list-group-item-heading left" data-ng-bind="projet.projectDescription"></h5>
+            <h6 style="margin: 10px; color: #0055aa" class="list-group-item-heading left" data-ng-bind="projet.projectAdresses.city"></h6>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!projets.$resolved || projets.length">
+    	Pas de projets pour le moment,pourquoi ne pas en créer <a href="/#!/projets/create">Créer un projet</a>?
+    </div>
+</section>

@@ -1,0 +1,43 @@
+<section data-ng-controller="ProjetsController">
+    <div class="page-header">
+        <h1>New Projet</h1>
+    </div>
+    <div class="col-md-6 center-block">
+        <form class="form-horizontal" data-ng-submit="createProject()" novalidate>
+            <fieldset>
+
+                    <div class="form-group center-block">
+                        <label class="control-label" for="name">Nom du projet</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="projectName" id="name" class="form-control" placeholder="Nom du projet"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group center-block">
+                        <label class="control-label" for="name">Description</label>
+                        <div class="controls">
+                            <textarea type="text" data-ng-model="projectDescription" id="desc" class="form-control" placeholder="description de votre projet"
+                                      required>
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group center-block">
+
+                        <select ng-model="myCity" ng-options="city in citys">
+                        </select><br/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success btn-lg left">
+                    </div>
+                    <div class="form-group center-block">
+                    <div data-ng-show="error" class="text-danger left">
+                        <strong data-ng-bind="error"></strong>
+                    </div>
+                    </div>
+
+            </fieldset>
+        </form>
+    </div>
+</section>

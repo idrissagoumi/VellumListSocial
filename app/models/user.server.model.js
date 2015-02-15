@@ -29,13 +29,13 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		validate: [validateLocalStrategyProperty, 'Merci de Saisir votre prenom']
 	},
 	lastName: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		validate: [validateLocalStrategyProperty, 'Merci de Saisir votre nom']
 	},
 	displayName: {
 		type: String,
@@ -45,7 +45,7 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
+		validate: [validateLocalStrategyProperty, 'Merci de Saisir votre Email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
 	username: {
@@ -57,7 +57,24 @@ var UserSchema = new Schema({
 	password: {
 		type: String,
 		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer']
+		validate: [validateLocalStrategyPassword, 'Le mot de passe doit etre de 6 caracteres minimum']
+	},
+	jobTitle : {
+		type:String
+	},
+	telephone:{
+		type :String
+	},
+	adresse:{
+		city:{
+			type :String
+		},
+		zipCode:{
+			type:String
+		},
+		avenue:{
+			type:String
+		}
 	},
 	salt: {
 		type: String
@@ -71,7 +88,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user','company', 'admin']
 		}],
 		default: ['user']
 	},
