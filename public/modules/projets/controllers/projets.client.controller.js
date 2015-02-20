@@ -4,16 +4,21 @@
 angular.module('projets').controller('ProjetsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projets',
 	function($scope, $stateParams, $location, Authentication, Projets) {
 		$scope.authentication = Authentication;
-		$scope.citys = ['Rabat','Tanger','Tetouan','Fes','Marrakesh','Casablanca','Agadir'];
+		$scope.Villes = ['Rabat','Tanger','Tetouan','Fes','Marrakesh','Casablanca','Agadir'];
+
+		//$scope.projectToCreate = {};
+		//var projectToCreate =;
 
 		// Create new Projet
 		$scope.createProject = function() {
 			// Create new Projet object
-			var projet = new ProjetSchema ({
-				projectName: this.projectName,
-				projectDescription:this.projectDescription,
-				'projectAdresses.city' :$scope.myCity
-			});
+
+			var projet = new Projets($scope.projectToCreate);
+
+			//var projet = new Projets({
+			//	projectName: this.projectName,
+			//	projectDescription: this.projectDescription
+			//});
 
 			// Redirect after save
 			projet.$save(function(response) {

@@ -43,15 +43,21 @@ angular.element(document).ready(function() {
 });
 'use strict';
 
-// Use Applicaion configuration module to register a new module
-ApplicationConfiguration.registerModule('articles');
+// Use Application configuration module to register a new module
+//ApplicationConfiguration.registerModule('articles');
+
 'use strict';
 
-// Use Applicaion configuration module to register a new module
+// Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
+
 'use strict';
 
-// Use Applicaion configuration module to register a new module
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('projets');
+'use strict';
+
+// Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
 'use strict';
 
@@ -372,6 +378,131 @@ angular.module('core').service('Menus', [
 ]);
 'use strict';
 
+// Configuring the Articles module
+angular.module('projets').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'Projets', 'projets', 'dropdown', '/projets(/create)?');
+		Menus.addSubMenuItem('topbar', 'projets', 'List Projets', 'projets');
+		Menus.addSubMenuItem('topbar', 'projets', 'New Projet', 'projets/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('projets').config(['$stateProvider',
+	function($stateProvider) {
+		// Projets state routing
+		$stateProvider.
+		state('listProjets', {
+			url: '/projets',
+			templateUrl: 'modules/projets/views/list-projets.client.view.html'
+		}).
+		state('createProjet', {
+			url: '/projets/create',
+			templateUrl: 'modules/projets/views/create-projet.client.view.html'
+		}).
+		state('viewProjet', {
+			url: '/projets/:projetId',
+			templateUrl: 'modules/projets/views/view-projet.client.view.html'
+		}).
+		state('editProjet', {
+			url: '/projets/:projetId/edit',
+			templateUrl: 'modules/projets/views/edit-projet.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Projets controller
+angular.module('projets').controller('ProjetsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projets',
+	function($scope, $stateParams, $location, Authentication, Projets) {
+		$scope.authentication = Authentication;
+		$scope.Villes = ['Rabat','Tanger','Tetouan','Fes','Marrakesh','Casablanca','Agadir'];
+
+		$scope.projectToCreate = {};
+		var projectToCreate = $scope.projectToCreate;
+
+		// Create new Projet
+		$scope.createProject = function() {
+			// Create new Projet object
+
+			var projet = projectToCreate;
+
+			//var projet = new Projets({
+			//	projectName: this.projectName,
+			//	projectDescription: this.projectDescription,
+			//	'projectAdresses.city': $scope.ville
+			//});
+
+			// Redirect after save
+			projet.$save(function(response) {
+				$location.path('projets/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Projet
+		$scope.removeProject = function(projet) {
+			if ( projet ) { 
+				projet.$remove();
+
+				for (var i in $scope.projets) {
+					if ($scope.projets [i] === projet) {
+						$scope.projets.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.projet.$remove(function() {
+					$location.path('projets');
+				});
+			}
+		};
+
+		// Update existing Projet
+		$scope.updateProject = function() {
+			var projet = $scope.projet;
+
+			projet.$update(function() {
+				$location.path('projets/' + projet._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Projets
+		$scope.findProjects = function() {
+			$scope.projets = Projets.query();
+		};
+
+		// Find existing Projet
+		$scope.findOneProject = function() {
+			$scope.projet = Projets.get({ 
+				projetId: $stateParams.projetId
+			});
+		};
+	}
+]);
+
+'use strict';
+
+//Projets service used to communicate Projets REST endpoints
+angular.module('projets').factory('Projets', ['$resource',
+	function($resource) {
+		return $resource('projets/:projetId', { projetId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+'use strict';
+
 // Config HTTP Error Handling
 angular.module('users').config(['$httpProvider',
 	function($httpProvider) {
@@ -597,17 +728,14 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 'use strict';
 
 // Authentication service for user variables
-angular.module('users').factory('Authentication', [
-	function() {
-		var _this = this;
+angular.module('users').factory('Authentication', ['$window', function($window) {
+	var auth = {
+		user: $window.user
+	};
+	
+	return auth;
+}]);
 
-		_this._data = {
-			user: window.user
-		};
-
-		return _this._data;
-	}
-]);
 'use strict';
 
 // Users service used for communicating with the users REST endpoint
