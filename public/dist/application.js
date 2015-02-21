@@ -420,19 +420,18 @@ angular.module('projets').controller('ProjetsController', ['$scope', '$statePara
 		$scope.authentication = Authentication;
 		$scope.Villes = ['Rabat','Tanger','Tetouan','Fes','Marrakesh','Casablanca','Agadir'];
 
-		$scope.projectToCreate = {};
-		var projectToCreate = $scope.projectToCreate;
+		//$scope.projectToCreate = {};
+		//var projectToCreate =;
 
 		// Create new Projet
 		$scope.createProject = function() {
 			// Create new Projet object
 
-			var projet = projectToCreate;
+			var projet = new Projets($scope.projectToCreate);
 
 			//var projet = new Projets({
 			//	projectName: this.projectName,
-			//	projectDescription: this.projectDescription,
-			//	'projectAdresses.city': $scope.ville
+			//	projectDescription: this.projectDescription
 			//});
 
 			// Redirect after save
