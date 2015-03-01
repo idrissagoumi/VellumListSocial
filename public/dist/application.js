@@ -54,6 +54,10 @@ ApplicationConfiguration.registerModule('core');
 'use strict';
 
 // Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('produits');
+'use strict';
+
+// Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('projets');
 'use strict';
 
@@ -374,6 +378,121 @@ angular.module('core').service('Menus', [
 
 		//Adding the topbar menu
 		this.addMenu('topbar');
+	}
+]);
+'use strict';
+
+// Configuring the Articles module
+angular.module('produits').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'Produits', 'produits', 'dropdown', '/produits(/create)?');
+		Menus.addSubMenuItem('topbar', 'produits', 'List Produits', 'produits');
+		Menus.addSubMenuItem('topbar', 'produits', 'New Produit', 'produits/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('produits').config(['$stateProvider',
+	function($stateProvider) {
+		// Produits state routing
+		$stateProvider.
+		state('listProduits', {
+			url: '/produits',
+			templateUrl: 'modules/produits/views/list-produits.client.view.html'
+		}).
+		state('createProduit', {
+			url: '/produits/create',
+			templateUrl: 'modules/produits/views/create-produit.client.view.html'
+		}).
+		state('viewProduit', {
+			url: '/produits/:produitId',
+			templateUrl: 'modules/produits/views/view-produit.client.view.html'
+		}).
+		state('editProduit', {
+			url: '/produits/:produitId/edit',
+			templateUrl: 'modules/produits/views/edit-produit.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Produits controller
+angular.module('produits').controller('ProduitsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Produits',
+	function($scope, $stateParams, $location, Authentication, Produits) {
+		$scope.authentication = Authentication;
+
+		// Create new Produit
+		$scope.create = function() {
+			// Create new Produit object
+			var produit = new Produits ({
+				name: this.name
+			});
+
+			// Redirect after save
+			produit.$save(function(response) {
+				$location.path('produits/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Produit
+		$scope.remove = function(produit) {
+			if ( produit ) { 
+				produit.$remove();
+
+				for (var i in $scope.produits) {
+					if ($scope.produits [i] === produit) {
+						$scope.produits.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.produit.$remove(function() {
+					$location.path('produits');
+				});
+			}
+		};
+
+		// Update existing Produit
+		$scope.update = function() {
+			var produit = $scope.produit;
+
+			produit.$update(function() {
+				$location.path('produits/' + produit._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Produits
+		$scope.find = function() {
+			$scope.produits = Produits.query();
+		};
+
+		// Find existing Produit
+		$scope.findOne = function() {
+			$scope.produit = Produits.get({ 
+				produitId: $stateParams.produitId
+			});
+		};
+	}
+]);
+'use strict';
+
+//Produits service used to communicate Produits REST endpoints
+angular.module('produits').factory('Produits', ['$resource',
+	function($resource) {
+		return $resource('produits/:produitId', { produitId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
 	}
 ]);
 'use strict';

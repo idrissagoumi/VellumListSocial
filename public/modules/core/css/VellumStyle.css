@@ -1,0 +1,201 @@
+.profilbar-transition{
+    min-height: 40px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 3px 4px #999;
+    transition: all 1s;
+    -moz-transition: all 1s; /* Firefox 4 */
+    -webkit-transition: all 1s; /* Safari and Chrome */
+    -o-transition: all 1s; /* Opera */
+}
+.profilbar-transition:hover{
+    min-height: 160px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 3px 4px #999;
+    transition: all 1s;
+    -moz-transition: all 1s; /* Firefox 4 */
+    -webkit-transition: all 1s; /* Safari and Chrome */
+    -o-transition: all 1s; /* Opera */
+
+}
+
+.navbar {
+    background-color: #DCDCDC;
+    position: relative;
+    min-height: 40px;
+    border: 1px solid transparent;
+    box-shadow: 0 3px 4px #999;
+}
+
+.navbar-vbrand {
+    float:left;
+    height:40px;
+    width:110px;
+    margin:0 12px;
+    padding: 0;
+    background: url(../img/brand/icons.png) 0px 0px;
+}
+
+.topLeftBtns a {
+    float:left;
+    height:18px;
+    margin:11px 4px;
+}
+.topLeftBtns .collabsBtn {
+    width:20px;
+    background: url(../img/brand/icons.png) -110px 0px;
+}
+.topLeftBtns .collabsBtn:hover {
+    background: url(../img/brand/icons.png) -110px -18px;
+}
+.topLeftBtns .inboxBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -130px 0px;
+}
+.topLeftBtns .inboxBtn:hover {
+    background: url(../img/brand/icons.png) -130px -18px;
+}
+.topLeftBtns .projectBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -148px 0px;
+}
+.topLeftBtns .projectBtn:hover {
+    background: url(../img/brand/icons.png) -148px -18px;
+}
+.topLeftBtns .notificationsBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -166px 0px;
+}
+.topLeftBtns .notificationsBtn:hover {
+    background: url(../img/brand/icons.png) -166px -18px;
+}
+
+.topRightBtns a {
+    float:right;
+    height:18px;
+    margin:11px 4px;
+}
+.topRightBtns .homeBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -184px 0px;
+}
+.topRightBtns .homeBtn:hover {
+    background: url(../img/brand/icons.png) -184px -18px;
+}
+.topRightBtns .profileBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -202px 0px;
+}
+.topRightBtns .profileBtn:hover {
+    background: url(../img/brand/icons.png) -202px -18px;
+}
+.topRightBtns .settingsBtn {
+    width:18px;
+    background: url(../img/brand/icons.png) -238px 0px;
+}
+.topRightBtns .settingsBtn:hover {
+    background: url(../img/brand/icons.png) -238px -18px;
+}
+.topRightBtns .logoutBtn {
+    width:16px;
+    margin:11px 15px 11px 4px;
+    background: url(../img/brand/icons.png) -256px 0px;
+}
+.topRightBtns .logoutBtn:hover {
+    background: url(../img/brand/icons.png) -256px -18px;
+}
+
+.profilePic-big {
+    float:left;
+    height: 160px;
+    width: 160px;
+    max-width:100%;
+    border-color: #FFF;
+    background: url(../img/brand/icons.png) 0px -40px;
+    border-radius:.2em;
+    /*-moz-box-shadow: inset 0 0 6px 0  #999;
+    -webkit-box-shadow: inset 0 0 6px 0  #999;*/
+    box-shadow: inset 0 0 6px 0  #999;
+}
+.profilePic-small {
+    float:left;
+    height: 35px;
+    width: 35px;
+    max-width:100%;
+    border-color: #FFF;
+    background: url(../img/brand/icons.png) 0px -40px;
+    border-radius:.2em;
+    /*-moz-box-shadow: inset 0 0 6px 0  #999;
+    -webkit-box-shadow: inset 0 0 6px 0  #999;*/
+    box-shadow: inset 0 0 6px 0  #999;
+}
+
+
+
+/* Begining of navBarMenu */
+.navBarMenu {
+    width:100%;
+    margin:0 auto;
+    background-color: #DCDCDC;
+    /*-moz-box-shadow: 0 -3px 4px #999;
+    -webkit-box-shadow: 0 -3px 4px #999;*/
+    box-shadow: 0 -3px 4px #999;
+}
+
+
+.navBarMenuItem {
+    width:10%;
+    letter-spacing:.1em;
+    font-size:1em;
+    text-align: center;
+    float: left;
+    padding: 0;
+    margin: .35em 3%;
+    transition: letter-spacing 0.5s ease;
+}
+.navBarMenuItem a{
+    font: 100% sans-serif;
+    color: #333;
+    display: block;
+    font-weight: bold;
+}
+.navBarMenuItem:hover {
+    letter-spacing:.2em;
+    color: #000;
+    text-shadow: 0px 1px 2px #666666;
+    text-align: center;
+    float: left;
+    transition: letter-spacing 0.5s ease;
+}
+
+
+.BodyContainer {
+    width: 960px;
+    height: 510px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.leftBody {
+    position:relative;
+    float:left;
+    height:700px;
+    overflow:auto;
+    background-color: #DCDCDC;
+    background-color: rgba(220,220,220,.50);
+    /*-moz-box-shadow: 0 -1px 6px #999;
+    -webkit-box-shadow: 0 -1px 6px #999;*/
+    box-shadow: 0 -1px 6px 0 #999;
+    border-radius:0 .4em .4em 0;
+}
+.rightBody {
+    float:left;
+    height:700px;
+    background-color: #DCDCDC;
+    background-color: rgba(220,220,220,.65);
+    /*-moz-box-shadow: 0px -1px 6px #999;
+    -webkit-box-shadow: 0px -1px 6px #999;*/
+    box-shadow: 0px -1px 5px 0 #999;
+    overflow:auto;
+    border-radius:.4em 0 0 .4em;
+}
